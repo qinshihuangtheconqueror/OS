@@ -1,6 +1,9 @@
 # Đồ án / Bài tập: Đồng bộ hóa bằng Monitor (Monitor-Based Synchronization)
 
-Dự án này mô phỏng cơ chế đồng bộ hóa **Monitor** bằng ngôn ngữ Python, áp dụng để giải quyết bài toán kinh điển **Producer-Consumer (Bộ đệm giới hạn - Bounded Buffer)**.
+Dự án này mô phỏng cơ chế đồng bộ hóa **Monitor** bằng ngôn ngữ Python, áp dụng để giải quyết 3 bài toán đồng bộ hóa kinh điển trong Hệ điều hành:
+1. **Producer - Consumer** (Bộ đệm giới hạn - Bounded Buffer)
+2. **Readers - Writers** (Người đọc - Người ghi)
+3. **Dining Philosophers** (Bữa tối của các triết gia)
 
 ## 1. Monitor là gì?
 
@@ -27,10 +30,11 @@ Dự án này mô phỏng cơ chế đồng bộ hóa **Monitor** bằng ngôn n
 
 **Tóm lại:** Monitor có thể được xem như sự kết hợp giữa **Mutex** (để khóa) và một hoặc nhiều **Biến điều kiện** (để quản lý luồng chờ).
 
-## 4. Cấu trúc Dự án
+## 4. Các bài toán được mô phỏng
 
-- `monitor.py`: Định nghĩa lớp `Monitor` cốt lõi và lớp `BoundedBufferMonitor` (triển khai bài toán Producer-Consumer).
-- `main.py`: Kịch bản chạy mô phỏng, tạo ra nhiều luồng (threads) Producer và Consumer chạy song song.
+- `BoundedBufferMonitor`: Giải quyết bài toán **Producer - Consumer**, đảm bảo Producer chờ khi bộ đệm đầy và Consumer chờ khi bộ đệm rỗng.
+- `ReadersWritersMonitor`: Giải quyết bài toán **Readers - Writers**. Phiên bản trong code được thiết kế để ưu tiên cho Writer (Người ghi) tránh tình trạng Starvation (Đói tài nguyên của Writer).
+- `DiningPhilosophersMonitor`: Giải quyết bài toán **Dining Philosophers**. Sử dụng mảng trạng thái để kiểm tra nĩa hai bên, đảm bảo không có triết gia nào bị rơi vào Deadlock.
 
 ## 5. Hướng dẫn chạy
 
@@ -38,10 +42,10 @@ Dự án sử dụng thuần thư viện chuẩn của Python, không cần cài
 
 1. Mở terminal / command prompt.
 2. Điều hướng đến thư mục chứa dự án.
-3. Chạy file main:
+3. Chạy file main để mở Menu tương tác:
 
 ```bash
 python main.py
 ```
 
-Bạn sẽ thấy log in ra luân phiên quá trình các luồng sản xuất và tiêu thụ dữ liệu, cách chúng chờ đợi nhau khi buffer ĐẦY (Full) hoặc RỖNG (Empty).
+4. Làm theo hướng dẫn trên màn hình để chọn bài toán bạn muốn mô phỏng (từ 1 đến 3), hoặc bấm `0` để thoát.
